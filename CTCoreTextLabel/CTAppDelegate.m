@@ -7,6 +7,7 @@
 //
 
 #import "CTAppDelegate.h"
+#import "CTMainViewController.h"
 
 @implementation CTAppDelegate
 
@@ -16,6 +17,8 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    CTMainViewController *vc = [[CTMainViewController alloc] initWithNibName:@"CTMainViewController" bundle:[NSBundle mainBundle]];
+    self.window.rootViewController = vc;
     return YES;
 }
 

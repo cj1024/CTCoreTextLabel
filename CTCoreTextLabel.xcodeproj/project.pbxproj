@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B70D8E9185701D4001268D9 /* face1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B70D8E8185701D4001268D9 /* face1.png */; };
+		3B70D8EC185702DD001268D9 /* face0.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B70D8EB185702DD001268D9 /* face0.png */; };
+		3B70D8F2185702E7001268D9 /* face3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B70D8EE185702E7001268D9 /* face3.png */; };
+		3B70D8F3185702E7001268D9 /* face4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B70D8EF185702E7001268D9 /* face4.png */; };
+		3B70D8F4185702E7001268D9 /* face5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B70D8F0185702E7001268D9 /* face5.png */; };
+		3B70D8F61857034D001268D9 /* face2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B70D8F51857034D001268D9 /* face2.png */; };
 		3B85FC6B184C6A8600DE1B61 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B85FC6A184C6A8600DE1B61 /* Foundation.framework */; };
 		3B85FC6D184C6A8600DE1B61 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B85FC6C184C6A8600DE1B61 /* CoreGraphics.framework */; };
 		3B85FC6F184C6A8600DE1B61 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B85FC6E184C6A8600DE1B61 /* UIKit.framework */; };
@@ -19,6 +25,10 @@
 		3B85FC86184C6A8600DE1B61 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B85FC6E184C6A8600DE1B61 /* UIKit.framework */; };
 		3B85FC8E184C6A8600DE1B61 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B85FC8C184C6A8600DE1B61 /* InfoPlist.strings */; };
 		3B85FC90184C6A8600DE1B61 /* CTCoreTextLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B85FC8F184C6A8600DE1B61 /* CTCoreTextLabelTests.m */; };
+		3B85FCA1184C6ABD00DE1B61 /* CTCoreTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B85FC9B184C6ABC00DE1B61 /* CTCoreTextLabel.m */; };
+		3B85FCA2184C6ABD00DE1B61 /* CTCoreTextRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B85FC9D184C6ABC00DE1B61 /* CTCoreTextRun.m */; };
+		3B85FCA3184C6ABD00DE1B61 /* CTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B85FC9F184C6ABC00DE1B61 /* CTMainViewController.m */; };
+		3B85FCA4184C6ABD00DE1B61 /* CTMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B85FCA0184C6ABC00DE1B61 /* CTMainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B70D8E8185701D4001268D9 /* face1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face1.png; sourceTree = "<group>"; };
+		3B70D8EB185702DD001268D9 /* face0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face0.png; sourceTree = "<group>"; };
+		3B70D8EE185702E7001268D9 /* face3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face3.png; sourceTree = "<group>"; };
+		3B70D8EF185702E7001268D9 /* face4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face4.png; sourceTree = "<group>"; };
+		3B70D8F0185702E7001268D9 /* face5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face5.png; sourceTree = "<group>"; };
+		3B70D8F51857034D001268D9 /* face2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face2.png; sourceTree = "<group>"; };
 		3B85FC67184C6A8600DE1B61 /* CTCoreTextLabel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CTCoreTextLabel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B85FC6A184C6A8600DE1B61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3B85FC6C184C6A8600DE1B61 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,6 +64,13 @@
 		3B85FC8B184C6A8600DE1B61 /* CTCoreTextLabelTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CTCoreTextLabelTests-Info.plist"; sourceTree = "<group>"; };
 		3B85FC8D184C6A8600DE1B61 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B85FC8F184C6A8600DE1B61 /* CTCoreTextLabelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTCoreTextLabelTests.m; sourceTree = "<group>"; };
+		3B85FC9A184C6ABC00DE1B61 /* CTCoreTextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTCoreTextLabel.h; path = Class/CTCoreTextLabel.h; sourceTree = "<group>"; };
+		3B85FC9B184C6ABC00DE1B61 /* CTCoreTextLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTCoreTextLabel.m; path = Class/CTCoreTextLabel.m; sourceTree = "<group>"; };
+		3B85FC9C184C6ABC00DE1B61 /* CTCoreTextRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTCoreTextRun.h; path = Class/CTCoreTextRun.h; sourceTree = "<group>"; };
+		3B85FC9D184C6ABC00DE1B61 /* CTCoreTextRun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTCoreTextRun.m; path = Class/CTCoreTextRun.m; sourceTree = "<group>"; };
+		3B85FC9E184C6ABC00DE1B61 /* CTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTMainViewController.h; path = Class/CTMainViewController.h; sourceTree = "<group>"; };
+		3B85FC9F184C6ABC00DE1B61 /* CTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTMainViewController.m; path = Class/CTMainViewController.m; sourceTree = "<group>"; };
+		3B85FCA0184C6ABC00DE1B61 /* CTMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CTMainViewController.xib; path = Class/CTMainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +97,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B70D8EA185701DA001268D9 /* icon */ = {
+			isa = PBXGroup;
+			children = (
+				3B70D8EB185702DD001268D9 /* face0.png */,
+				3B70D8E8185701D4001268D9 /* face1.png */,
+				3B70D8F51857034D001268D9 /* face2.png */,
+				3B70D8EE185702E7001268D9 /* face3.png */,
+				3B70D8EF185702E7001268D9 /* face4.png */,
+				3B70D8F0185702E7001268D9 /* face5.png */,
+			);
+			name = icon;
+			sourceTree = "<group>";
+		};
 		3B85FC5E184C6A8500DE1B61 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +143,8 @@
 		3B85FC70184C6A8600DE1B61 /* CTCoreTextLabel */ = {
 			isa = PBXGroup;
 			children = (
+				3B70D8EA185701DA001268D9 /* icon */,
+				3B85FC99184C6AAB00DE1B61 /* Class */,
 				3B85FC79184C6A8600DE1B61 /* CTAppDelegate.h */,
 				3B85FC7A184C6A8600DE1B61 /* CTAppDelegate.m */,
 				3B85FC7C184C6A8600DE1B61 /* Images.xcassets */,
@@ -142,6 +180,20 @@
 				3B85FC8C184C6A8600DE1B61 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3B85FC99184C6AAB00DE1B61 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				3B85FC9A184C6ABC00DE1B61 /* CTCoreTextLabel.h */,
+				3B85FC9B184C6ABC00DE1B61 /* CTCoreTextLabel.m */,
+				3B85FC9C184C6ABC00DE1B61 /* CTCoreTextRun.h */,
+				3B85FC9D184C6ABC00DE1B61 /* CTCoreTextRun.m */,
+				3B85FC9E184C6ABC00DE1B61 /* CTMainViewController.h */,
+				3B85FC9F184C6ABC00DE1B61 /* CTMainViewController.m */,
+				3B85FCA0184C6ABC00DE1B61 /* CTMainViewController.xib */,
+			);
+			name = Class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,8 +272,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B70D8F3185702E7001268D9 /* face4.png in Resources */,
+				3B70D8E9185701D4001268D9 /* face1.png in Resources */,
 				3B85FC75184C6A8600DE1B61 /* InfoPlist.strings in Resources */,
 				3B85FC7D184C6A8600DE1B61 /* Images.xcassets in Resources */,
+				3B70D8F2185702E7001268D9 /* face3.png in Resources */,
+				3B70D8EC185702DD001268D9 /* face0.png in Resources */,
+				3B85FCA4184C6ABD00DE1B61 /* CTMainViewController.xib in Resources */,
+				3B70D8F61857034D001268D9 /* face2.png in Resources */,
+				3B70D8F4185702E7001268D9 /* face5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,8 +299,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B85FCA2184C6ABD00DE1B61 /* CTCoreTextRun.m in Sources */,
+				3B85FCA3184C6ABD00DE1B61 /* CTMainViewController.m in Sources */,
 				3B85FC77184C6A8600DE1B61 /* main.m in Sources */,
 				3B85FC7B184C6A8600DE1B61 /* CTAppDelegate.m in Sources */,
+				3B85FCA1184C6ABD00DE1B61 /* CTCoreTextLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,10 +424,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: 健 陈 (G2XQZR59FE)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CTCoreTextLabel/CTCoreTextLabel-Prefix.pch";
 				INFOPLIST_FILE = "CTCoreTextLabel/CTCoreTextLabel-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -375,10 +440,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: 健 陈 (G2XQZR59FE)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CTCoreTextLabel/CTCoreTextLabel-Prefix.pch";
 				INFOPLIST_FILE = "CTCoreTextLabel/CTCoreTextLabel-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -444,6 +512,7 @@
 				3B85FC95184C6A8600DE1B61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3B85FC96184C6A8600DE1B61 /* Build configuration list for PBXNativeTarget "CTCoreTextLabelTests" */ = {
 			isa = XCConfigurationList;
@@ -452,6 +521,7 @@
 				3B85FC98184C6A8600DE1B61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
