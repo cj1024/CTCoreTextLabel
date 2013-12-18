@@ -48,8 +48,8 @@
     self.mTextField.delegate = self;
     self.mDisplayField.maxWidth = 320;
     self.mDisplayField.textAlignment = NSTextAlignmentLeft;
-    self.mDisplayField.lineBreakMode = NSLineBreakByTruncatingTail;
-    self.mDisplayField.numberOfLines = 2;
+    self.mDisplayField.lineBreakMode = NSLineBreakByTruncatingHead;
+    self.mDisplayField.numberOfLines = 3;
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     [self.view addGestureRecognizer:gesture];
 }

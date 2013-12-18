@@ -9,18 +9,6 @@
 #import "CTCoreTextRun.h"
 #import <CoreText/CoreText.h>
 
-@implementation NSMutableDictionary(ValueValidate)
-
-- (void)setObjectForCtrip:(id)value forKey:(id <NSCopying>)key
-{
-    if (value != nil && key != nil)
-    {
-        [self setObject:value forKey:key];
-    }
-}
-
-@end
-
 @interface CTCoreTextRun ()
 
 /**
@@ -72,35 +60,48 @@
 #pragma mark - --------------------接口API--------------------
 - (NSMutableDictionary*)generateAttributes
 {
+    
     NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithCapacity:5];
     UIFont *realFont = self.font?self.font:kCTDefaultCoreTextFont;
-    CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)realFont.fontName, realFont.pointSize, NULL);
+    CTFontRef font = CTFontCreateWithName((CFStringRef)realFont.fontName, realFont.pointSize, NULL);
     //斜体
     if (self.isItalic)
     {
-        font = CTFontCreateCopyWithSymbolicTraits(font, 0.0, NULL, kCTFontItalicTrait, kCTFontItalicTrait);
+        CTFontRef italicFont = CTFontCreateCopyWithSymbolicTraits(font, 0.0, NULL, kCTFontItalicTrait, kCTFontItalicTrait);
+        CFRelease(font);
+        font = italicFont;
+        CFRetain(font);
+        CFRelease(italicFont);
     }
     //粗体
-    [attributes setObjectForCtrip:[NSNumber numberWithFloat:self.isBold?kCTBoldCoreTextStrokeWidth:kCTDefaultCoreTextStrokeWidth] forKey:(id)kCTStrokeWidthAttributeName];
+    [attributes setObject:[NSNumber numberWithFloat:self.isBold?kCTBoldCoreTextStrokeWidth:kCTDefaultCoreTextStrokeWidth] forKey:(id)kCTStrokeWidthAttributeName];
     //下划线
     if (self.isUnderline)
     {
-        [attributes setObjectForCtrip:[NSNumber numberWithInteger:kCTUnderlineStyleSingle] forKey:(id)kCTUnderlineStyleAttributeName];
+        [attributes setObject:[NSNumber numberWithInteger:kCTUnderlineStyleSingle] forKey:(id)kCTUnderlineStyleAttributeName];
     }
     //删除线
     if (self.isStrikeThrough)
     {
-        [attributes setObjectForCtrip:[NSNumber numberWithInteger:self.strikeThroughThickness] forKey:kCTCoreTextStrikethroughStyleAttributeName];
-        [attributes setObjectForCtrip:(id)self.strikeThroughColor.CGColor forKey:kCTCoreTextStrikethroughColorAttributeName];
+        [attributes setObject:[NSNumber numberWithInteger:self.strikeThroughThickness] forKey:kCTCoreTextStrikethroughStyleAttributeName];
+        [attributes setObject:(id)self.strikeThroughColor.CGColor forKey:kCTCoreTextStrikethroughColorAttributeName];
     }
     if (self.backgroundColor)
     {
-        [attributes setObjectForCtrip:(id)self.backgroundColor.CGColor forKey:kCTCoreTextBackgroundColorAttributeName];
+        [attributes setObject:(id)self.backgroundColor.CGColor forKey:kCTCoreTextBackgroundColorAttributeName];
     }
-    [attributes setObjectForCtrip:(__bridge id)(font) forKey:(id)kCTFontAttributeName];
+    id idfont = (__bridge id)font;
+    if (idfont)
+    {
+        [attributes setObject:idfont forKey:(id)kCTFontAttributeName];
+    }
     UIColor *realTextColor = self.textColor?self.textColor:kCTDefaultCoreTextColor;
-    [attributes setObjectForCtrip:(id)realTextColor.CGColor forKey:(id)kCTForegroundColorAttributeName];
-    [attributes setObjectForCtrip:self forKey:kCTCoreTextRunTargetAttributeName];
+    [attributes setObject:(id)realTextColor.CGColor forKey:(id)kCTForegroundColorAttributeName];
+    [attributes setObject:self forKey:kCTCoreTextRunTargetAttributeName];
+    if (font != NULL)
+    {
+        CFRelease(font);
+    }
     return attributes;
 }
 
@@ -119,11 +120,11 @@
     if (self.isHighlighted)
     {
         UIColor *realTextColor = self.highlightedColor?self.highlightedColor:self.textColor?self.textColor:kCTDefaultCoreTextColor;
-        [attributes setObjectForCtrip:(id)realTextColor.CGColor forKey:(id)kCTForegroundColorAttributeName];
+        [attributes setObject:(id)realTextColor.CGColor forKey:(id)kCTForegroundColorAttributeName];
         UIColor *realBackColor = self.highlightedBackgroundColor?self.highlightedBackgroundColor:self.backgroundColor?self.backgroundColor:nil;
-        if (realBackColor!=nil)
+        if (realBackColor != nil)
         {
-            [attributes setObjectForCtrip:(id)realBackColor.CGColor forKey:(id)kCTCoreTextBackgroundColorAttributeName];
+            [attributes setObject:(id)realBackColor.CGColor forKey:(id)kCTCoreTextBackgroundColorAttributeName];
         }
     }
     return attributes;
@@ -154,13 +155,14 @@
         [relpaceString appendString:@"囧"];//囧字方方正正，用在这里不错
     }
     UIFont *replaceFont = [UIFont systemFontOfSize:self.imageHeight];
-    CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)replaceFont.fontName, replaceFont.pointSize, NULL);
-    [attributes setObjectForCtrip:(__bridge id)(font) forKey:(id)kCTFontAttributeName];
-    [attributes setObjectForCtrip:(id)[UIColor clearColor].CGColor forKey:(id)kCTForegroundColorAttributeName];
+    CTFontRef font = CTFontCreateWithName((CFStringRef)replaceFont.fontName, replaceFont.pointSize, NULL);
+    [attributes setObject:(__bridge id)(font) forKey:(id)kCTFontAttributeName];
+    [attributes setObject:(id)[UIColor clearColor].CGColor forKey:(id)kCTForegroundColorAttributeName];
     if (self.image)
     {
-        [attributes setObjectForCtrip:self.image forKey:kCTCoreTextImageAttributeName];
+        [attributes setObject:self.image forKey:kCTCoreTextImageAttributeName];
     }
+    CFRelease(font);
     return [[NSAttributedString alloc] initWithString:relpaceString attributes:attributes];
 }
 

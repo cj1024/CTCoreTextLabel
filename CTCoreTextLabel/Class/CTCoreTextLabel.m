@@ -35,7 +35,7 @@
 /**
  *  计算好的 TextFrame
  */
-@property (nonatomic, assign, readwrite) CTFrameRef calculatedTextFrame;
+@property (nonatomic, unsafe_unretained, readwrite) CTFrameRef calculatedTextFrame;
 
 /**
  *  计算好的 Text 大小
@@ -49,6 +49,10 @@
 @synthesize runs = runs_;
 
 #pragma mark - --------------------退出清空--------------------
+- (void)dealloc
+{
+    self.calculatedTextFrame = NULL;
+}
 
 #pragma mark - --------------------初始化--------------------
 - (id)init
@@ -234,9 +238,16 @@
  *  @return  处理好的 line
  */
 #ifdef kCTCoreTextLabelManuallyTruncating
-- (CTLineRef)truncateLine:(CTLineRef)line CurrentLine:(NSInteger)currentLine TotalLine:(NSInteger)totalLine
+- (CTLineRef)createTuncateLine:(CTLineRef)line CurrentLine:(NSInteger)currentLine TotalLine:(NSInteger)totalLine
 {
-    CGRect lineBounds = CTLineGetImageBounds(line, NULL);
+    CTLineRef result = CFRetain(line);
+    CGRect lineBounds = CGRectZero;
+    CGFloat ascent;
+    CGFloat descent;
+    CGFloat leading;
+    CGFloat whiteSpace = CTLineGetTrailingWhitespaceWidth(line);
+    lineBounds.size.width = CTLineGetTypographicBounds(line,&ascent,&descent,&leading) - whiteSpace;
+    lineBounds.size.height = ascent + descent;
     CFRange currentRange = CTFrameGetVisibleStringRange(self.calculatedTextFrame), totalRange = CTFrameGetStringRange(self.calculatedTextFrame);
     BOOL needTruncating = currentRange.location != totalRange.location || currentRange.length != totalRange.length;
     if (self.lineBreakMode == NSLineBreakByTruncatingTail && currentLine == totalLine - 1 && needTruncating)
@@ -250,23 +261,25 @@
             NSAttributedString *truncatedString = [[NSAttributedString alloc]initWithString:@"\u2026" attributes:attDic];
             CTLineRef token = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)truncatedString);
 #ifdef kCTCoreTextLabelAccurateTruncating
-            CGFloat whiteSpace = CTLineGetTrailingWhitespaceWidth(line);
             CGFloat u2026width = CTLineGetImageBounds(token, NULL).size.width;
             if (whiteSpace < u2026width)
             {
-                line = CTLineCreateTruncatedLine(line, self.bounds.size.width, kCTLineTruncationEnd, token);
+                CFRelease(result);
+                result = CTLineCreateTruncatedLine(line, self.bounds.size.width, kCTLineTruncationEnd, token);
             }
             else
             {
-                line = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationEnd, token);
+                CFRelease(result);
+                result = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationEnd, token);
             }
 #else
-            line = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationEnd, token);
+            CFRelease(result);
+            result = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationEnd, token);
 #endif
             CFRelease(token);
         }
     }
-    else if (self.lineBreakMode == NSLineBreakByTruncatingHead && currentLine == 0 && needTruncating)
+    else if (self.lineBreakMode == NSLineBreakByTruncatingHead && currentLine == totalLine - 1 && needTruncating)
     {
         CFArrayRef runs = CTLineGetGlyphRuns(line);
         NSInteger runCount = CFArrayGetCount(runs);
@@ -277,23 +290,25 @@
             NSAttributedString *truncatedString = [[NSAttributedString alloc]initWithString:@"\u2026" attributes:attDic];
             CTLineRef token = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)truncatedString);
 #ifdef kCTCoreTextLabelAccurateTruncating
-            CGFloat whiteSpace = CTLineGetTrailingWhitespaceWidth(line);
             CGFloat u2026width = CTLineGetImageBounds(token, NULL).size.width;
             if (whiteSpace < u2026width)
             {
-                line = CTLineCreateTruncatedLine(line, self.bounds.size.width - 1, kCTLineTruncationStart, token);
+                CFRelease(result);
+                result = CTLineCreateTruncatedLine(line, self.bounds.size.width - 1, kCTLineTruncationStart, token);
             }
             else
             {
-                line = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationStart, token);
+                CFRelease(result);
+                result = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationStart, token);
             }
 #else
-            line = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationStart, token);
+            CFRelease(result);
+            result = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationStart, token);
 #endif
             CFRelease(token);
         }
     }
-    else if (self.lineBreakMode == NSLineBreakByTruncatingMiddle && currentLine == totalLine / 2 && needTruncating)
+    else if (self.lineBreakMode == NSLineBreakByTruncatingMiddle && currentLine == totalLine - 1 && needTruncating)
     {
         CFArrayRef runs = CTLineGetGlyphRuns(line);
         NSInteger runCount = CFArrayGetCount(runs);
@@ -304,23 +319,25 @@
             NSAttributedString *truncatedString = [[NSAttributedString alloc]initWithString:@"\u2026" attributes:attDic];
             CTLineRef token = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)truncatedString);
 #ifdef kCTCoreTextLabelAccurateTruncating
-            CGFloat whiteSpace = CTLineGetTrailingWhitespaceWidth(line);
             CGFloat u2026width = CTLineGetImageBounds(token, NULL).size.width;
             if (whiteSpace < u2026width)
             {
-                line = CTLineCreateTruncatedLine(line, self.bounds.size.width - 1, kCTLineTruncationMiddle, token);
+                CFRelease(result);
+                result = CTLineCreateTruncatedLine(line, self.bounds.size.width - 1, kCTLineTruncationMiddle, token);
             }
             else
             {
-                line = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationMiddle, token);
+                CFRelease(result);
+                result = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationMiddle, token);
             }
 #else
-            line = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationMiddle, token);
+            CFRelease(result);
+            result = CTLineCreateTruncatedLine(line, lineBounds.size.width - 1, kCTLineTruncationMiddle, token);
 #endif
             CFRelease(token);
         }
     }
-    return line;
+    return result;
 }
 #endif
 
@@ -347,8 +364,13 @@
         CGPoint origin = origins[i];
         // 获取CTLine中的CTRun
         CTLineRef line = CFArrayGetValueAtIndex(lines, i);
+        CFRetain(line);
 #ifdef kCTCoreTextLabelManuallyTruncating
-        line = [self truncateLine:line CurrentLine:i TotalLine:lineCount];
+        CTLineRef truncatedLine = [self createTuncateLine:line CurrentLine:i TotalLine:lineCount];
+        CFRelease(line);
+        line = truncatedLine;
+        CFRetain(line);
+        CFRelease(truncatedLine);
 #endif
         CGRect lineBounds = CTLineGetImageBounds(line, context);
         CFArrayRef runs = CTLineGetGlyphRuns(line);
@@ -402,6 +424,7 @@
                 CGContextDrawImage(context, runBounds, image.CGImage);
             }
         }
+        CFRelease(line);
     }
     CGContextRestoreGState(context);
 }
@@ -422,8 +445,13 @@
         CGPoint origin = origins[i];
         // 获取CTLine中的CTRun
         CTLineRef line = CFArrayGetValueAtIndex(lines, i);
+        CFRetain(line);
 #ifdef kCTCoreTextLabelManuallyTruncating
-        line = [self truncateLine:line CurrentLine:i TotalLine:lineCount];
+        CTLineRef truncatedLine = [self createTuncateLine:line CurrentLine:i TotalLine:lineCount];
+        CFRelease(line);
+        line = truncatedLine;
+        CFRetain(line);
+        CFRelease(truncatedLine);
 #endif
         CFArrayRef runs = CTLineGetGlyphRuns(line);
         for (int j = 0; j < CFArrayGetCount(runs); j++)
@@ -437,9 +465,11 @@
                 // 获取CTRun的属性
                 NSDictionary *attDic = (__bridge NSDictionary *)CTRunGetAttributes(run);
                 CTCoreTextRun *theRun = [attDic objectForKey:kCTCoreTextRunTargetAttributeName];
+                CFRelease(line);
                 return theRun;
             }
         }
+        CFRelease(line);
     }
     return nil;
 }
@@ -553,6 +583,19 @@
     }
 }
 
+- (void)setCalculatedTextFrame:(CTFrameRef)calculatedTextFrame
+{
+    if (self.calculatedTextFrame != NULL)
+    {
+        CFRelease(self.calculatedTextFrame);
+    }
+    _calculatedTextFrame = calculatedTextFrame;
+    if (self.calculatedTextFrame != NULL)
+    {
+        CFRetain(self.calculatedTextFrame);
+    }
+}
+
 #pragma mark - --------------------接口API--------------------
 - (void)addRun:(CTCoreTextRun *)run
 {
@@ -644,7 +687,11 @@
             stringRange.length += stringRange.location;
             stringRange.location = 0;
             NSAttributedString *stringForVisibleLine = [self.calculatedAttributedString attributedSubstringFromRange:NSMakeRange(stringRange.location, stringRange.length)];
-            framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)stringForVisibleLine);
+            CTFramesetterRef realFrameSetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)stringForVisibleLine);
+            CFRelease(framesetter);
+            framesetter = realFrameSetter;
+            CFRetain(framesetter);
+            CFRelease(realFrameSetter);
             textSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0,0), NULL, CGSizeMake(self.maxWidth, self.maxHeight), NULL);
         }
         CFRelease(path);
@@ -662,7 +709,9 @@
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)self.calculatedAttributedString);
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddRect(path, NULL, CGRectMake(0,0, self.bounds.size.width, self.calculatedTextSize.height));
-    self.calculatedTextFrame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0,0), path, NULL);
+    CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0,0), path, NULL);
+    self.calculatedTextFrame = textFrame;
+    CFRelease(textFrame);
     CGPathRelease(path);
     CFRelease(framesetter);
     [self setNeedsDisplay];
